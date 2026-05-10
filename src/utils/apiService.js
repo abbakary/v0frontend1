@@ -78,6 +78,15 @@ export const tradeService = {
   delete: (id) => api.delete(`/trades/${id}`),
 };
 
+// ── Funds ─────────────────────────────────────────────────────────────────────
+export const fundService = {
+  list: (params) => api.get("/funds/", { params }),
+  create: (data) => api.post("/funds/", data),
+  get: (id) => api.get(`/funds/${id}`),
+  update: (id, data) => api.put(`/funds/${id}`, data),
+  delete: (id) => api.delete(`/funds/${id}`),
+};
+
 // ── Orders ────────────────────────────────────────────────────────────────────
 export const orderService = {
   create: (data) => api.post("/orders/", data),
@@ -379,4 +388,55 @@ export const countryService = {
   update: (id, data) => api.put(`/africa-countries/${id}`, data),
   delete: (id) => api.delete(`/africa-countries/${id}`),
   restore: (id) => api.post(`/africa-countries/${id}/restore`),
+};
+
+// ── Editor Datasets (Review Workflows) ─────────────────────────────────────────
+export const editorDatasetService = {
+  queue: (params) => api.get("/editor/datasets/queue", { params }),
+  assigned: (params) => api.get("/editor/datasets/assigned", { params }),
+  search: (params) => api.get("/editor/datasets/search", { params }),
+  get: (id) => api.get(`/editor/datasets/${id}`),
+  reviewLogs: (id) => api.get(`/editor/datasets/${id}/review-logs`),
+  updateMetadata: (id, data) => api.put(`/editor/datasets/${id}/metadata`, data),
+  submitReview: (id, data) => api.post(`/editor/datasets/${id}/review`, data),
+};
+
+// ── Editor Trades (Review Workflows) ──────────────────────────────────────────
+export const editorTradeService = {
+  list: (params) => api.get("/trades/", { params }),
+  queue: (params) => api.get("/editor/trades/queue", { params }),
+  assigned: (params) => api.get("/editor/trades/assigned", { params }),
+  get: (id) => api.get(`/trades/${id}`),
+  update: (id, data) => api.put(`/trades/${id}`, data),
+  submitReview: (id, data) => api.post(`/editor/trades/${id}/review`, data),
+};
+
+// ── Editor Funds (Review Workflows) ───────────────────────────────────────────
+export const editorFundService = {
+  list: (params) => api.get("/funds/", { params }),
+  queue: (params) => api.get("/editor/funds/queue", { params }),
+  assigned: (params) => api.get("/editor/funds/assigned", { params }),
+  get: (id) => api.get(`/funds/${id}`),
+  update: (id, data) => api.put(`/funds/${id}`, data),
+  submitReview: (id, data) => api.post(`/editor/funds/${id}/review`, data),
+};
+
+// ── Editor Projects (Review Workflows) ────────────────────────────────────────
+export const editorProjectService = {
+  list: (params) => api.get("/projects/", { params }),
+  queue: (params) => api.get("/editor/projects/queue", { params }),
+  assigned: (params) => api.get("/editor/projects/assigned", { params }),
+  get: (id) => api.get(`/projects/${id}`),
+  update: (id, data) => api.put(`/projects/${id}`, data),
+  submitReview: (id, data) => api.post(`/editor/projects/${id}/review`, data),
+};
+
+// ── Editor Reports (Review Workflows) ─────────────────────────────────────────
+export const editorReportService = {
+  list: (params) => api.get("/reports/", { params }),
+  queue: (params) => api.get("/editor/reports/queue", { params }),
+  assigned: (params) => api.get("/editor/reports/assigned", { params }),
+  get: (id) => api.get(`/reports/${id}`),
+  update: (id, data) => api.put(`/reports/${id}`, data),
+  submitReview: (id, data) => api.post(`/editor/reports/${id}/review`, data),
 };

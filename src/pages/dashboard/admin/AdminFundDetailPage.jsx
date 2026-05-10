@@ -24,57 +24,14 @@ import {
   Edit,
   Save,
   TrendingUp,
+  Trash2,
 } from "lucide-react";
 import DashboardLayout from "../components/DashboardLayout";
 import { useThemeColors } from "../../../utils/useThemeColors";
+import { fundService } from "../../../utils/apiService";
 
 const ACCENT = "#61C5C3";
 const PRIMARY = "#FF8C00";
-
-const mockFundRequests = {
-  "FR-001": {
-    id: "FR-001",
-    title: "Agricultural Development Fund",
-    description: "Funding for small-scale agricultural projects in East Africa",
-    amount: 250000,
-    currency: "USD",
-    status: "pending",
-    applicant: "East Africa Farmers Cooperative",
-    email: "contact@eafc.org",
-    submittedDate: "2025-01-15",
-    category: "Agriculture",
-    region: "East Africa",
-    fundType: "Development Grant",
-    duration: "24 months",
-    objectives: [
-      "Support 500+ smallholder farmers",
-      "Improve agricultural productivity",
-      "Establish market linkages",
-      "Provide technical training",
-    ],
-  },
-  "FR-002": {
-    id: "FR-002",
-    title: "Technology Infrastructure Grant",
-    description: "Infrastructure development for technology startups",
-    amount: 500000,
-    currency: "USD",
-    status: "approved",
-    applicant: "TechHub Africa",
-    email: "funding@techchub.org",
-    submittedDate: "2025-01-10",
-    category: "Technology",
-    region: "West Africa",
-    fundType: "Infrastructure Grant",
-    duration: "36 months",
-    objectives: [
-      "Build tech incubation center",
-      "Provide mentorship programs",
-      "Support startup development",
-      "Create 100+ tech jobs",
-    ],
-  },
-};
 
 function SectionLabel({ children }) {
   return (
@@ -128,25 +85,113 @@ export default function AdminFundDetailPage() {
   const navigate = useNavigate();
   const colors = useThemeColors();
 
+  const isNew = !fundId;
   const [tab, setTab] = useState(0);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(isNew);
   const [snack, setSnack] = useState({ open: false, message: "", severity: "success" });
-  const [fund, setFund] = useState(mockFundRequests[fundId] || null);
-  const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(!isNew);
+  const [saving, setSaving] = useState(false);
+  const [fund, setFund] = useState(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    status: "pending",
+    amount: "",
+    currency: "USD",
+    applicant: "",
+    email: "",
+    category: "",
+    region: "",
+  });
 
   useEffect(() => {
-    if (fund) {
-      setFormData({
-        title: fund.title,
-        description: fund.description,
-        status: fund.status,
-        amount: fund.amount,
-        applicant: fund.applicant,
-      });
+    if (!isNew) {
+      fetchFund();
+    } else {
+      setLoading(false);
     }
-  }, [fund]);
+  }, [fundId, isNew]);
 
-  if (!fund) {
+  const fetchFund = async () => {
+    try {
+      const response = await fundService.get(fundId);
+      const data = response?.data?.data || response?.data;
+      if (data) {
+        setFund(data);
+        setFormData({
+          title: data.title || "",
+          description: data.description || "",
+          status: data.status || "pending",
+          amount: data.amount || "",
+          currency: data.currency || "USD",
+          applicant: data.applicant || data.created_by || "",
+          email: data.email || "",
+          category: data.category || "",
+          region: data.region || "",
+        });
+      }
+    } catch (err) {
+      setSnack({ open: true, message: "Failed to load fund", severity: "error" });
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const payload = {
+        title: formData.title,
+        description: formData.description,
+        status: formData.status,
+        amount: parseFloat(formData.amount) || 0,
+        currency: formData.currency,
+        applicant: formData.applicant,
+        email: formData.email,
+        category: formData.category,
+        region: formData.region,
+      };
+
+      if (isNew) {
+        await fundService.create(payload);
+      } else {
+        await fundService.update(fundId, payload);
+      }
+
+      setSnack({ open: true, message: "Fund updated successfully", severity: "success" });
+      setIsEditing(false);
+      if (isNew) {
+        setTimeout(() => navigate("/dashboard/admin/funds"), 1500);
+      }
+    } catch (err) {
+      setSnack({ open: true, message: "Failed to save fund", severity: "error" });
+      console.error(err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this fund?")) return;
+    setSaving(true);
+    try {
+      await fundService.delete(fundId);
+      setSnack({ open: true, message: "Fund deleted successfully", severity: "success" });
+      setTimeout(() => navigate("/dashboard/admin/funds"), 1500);
+    } catch (err) {
+      setSnack({ open: true, message: "Failed to delete fund", severity: "error" });
+      console.error(err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleFieldChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  if (loading) {
     return (
       <DashboardLayout role="admin">
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "60vh" }}>
@@ -155,15 +200,6 @@ export default function AdminFundDetailPage() {
       </DashboardLayout>
     );
   }
-
-  const handleSave = () => {
-    setSnack({ open: true, message: "Fund request updated successfully", severity: "success" });
-    setIsEditing(false);
-  };
-
-  const handleFieldChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
 
   return (
     <DashboardLayout role="admin">
@@ -193,19 +229,21 @@ export default function AdminFundDetailPage() {
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 3 }}>
               <Box sx={{ flex: 1 }}>
                 <Typography variant="h4" sx={{ fontWeight: 800, color: colors.text, mb: 1 }}>
-                  {fund.title}
+                  {formData.title || "New Fund"}
                 </Typography>
                 <Typography sx={{ color: colors.textMuted, mb: 2, fontSize: "0.95rem" }}>
-                  {fund.description}
+                  {formData.description || (isNew ? "Enter a description" : "No description")}
                 </Typography>
                 <Stack direction="row" spacing={2}>
-                  <StatusChip status={fund.status} />
-                  <Chip
-                    label={fund.category}
-                    size="small"
-                    variant="outlined"
-                    sx={{ borderColor: colors.border }}
-                  />
+                  <StatusChip status={formData.status} />
+                  {formData.category && (
+                    <Chip
+                      label={formData.category}
+                      size="small"
+                      variant="outlined"
+                      sx={{ borderColor: colors.border }}
+                    />
+                  )}
                 </Stack>
               </Box>
 
@@ -214,6 +252,7 @@ export default function AdminFundDetailPage() {
                   startIcon={<Edit size={18} />}
                   variant={isEditing ? "contained" : "outlined"}
                   onClick={() => setIsEditing(!isEditing)}
+                  disabled={saving}
                   sx={{
                     textTransform: "none",
                     borderColor: isEditing ? ACCENT : colors.border,
@@ -231,13 +270,26 @@ export default function AdminFundDetailPage() {
                     startIcon={<Save size={18} />}
                     variant="contained"
                     onClick={handleSave}
+                    disabled={saving}
                     sx={{
                       textTransform: "none",
                       backgroundColor: PRIMARY,
                       "&:hover": { backgroundColor: `${PRIMARY}dd` },
                     }}
                   >
-                    Save
+                    {saving ? "Saving..." : "Save"}
+                  </Button>
+                )}
+                {!isNew && !isEditing && (
+                  <Button
+                    startIcon={<Trash2 size={18} />}
+                    variant="outlined"
+                    color="error"
+                    onClick={handleDelete}
+                    disabled={saving}
+                    sx={{ textTransform: "none" }}
+                  >
+                    Delete
                   </Button>
                 )}
               </Stack>
@@ -260,10 +312,10 @@ export default function AdminFundDetailPage() {
           }}
         >
           {[
-            { icon: DollarSign, label: "Amount Requested", value: `$${fund.amount.toLocaleString()}` },
-            { icon: MapPin, label: "Region", value: fund.region },
-            { icon: Calendar, label: "Duration", value: fund.duration },
-            { icon: Calendar, label: "Submitted", value: fund.submittedDate },
+            { icon: DollarSign, label: "Amount Requested", value: `$${(parseFloat(formData.amount) || 0).toLocaleString()}` },
+            { icon: MapPin, label: "Region", value: formData.region || "-" },
+            { icon: Chip, label: "Currency", value: formData.currency || "USD" },
+            { icon: Calendar, label: "Status", value: formData.status || "-" },
           ].map((stat, idx) => {
             const Icon = stat.icon;
             return (
@@ -329,18 +381,18 @@ export default function AdminFundDetailPage() {
                   <Stack spacing={2} direction={{ xs: "column", sm: "row" }}>
                     <Box sx={{ p: 2, border: `1px solid ${colors.border}`, borderRadius: "8px", flex: 1 }}>
                       <Typography sx={{ fontSize: "0.75rem", color: colors.textMuted, mb: 0.5 }}>
-                        Fund Type
+                        Currency
                       </Typography>
                       <Typography sx={{ fontSize: "0.95rem", fontWeight: 600, color: colors.text }}>
-                        {fund.fundType}
+                        {formData.currency}
                       </Typography>
                     </Box>
                     <Box sx={{ p: 2, border: `1px solid ${colors.border}`, borderRadius: "8px", flex: 1 }}>
                       <Typography sx={{ fontSize: "0.75rem", color: colors.textMuted, mb: 0.5 }}>
-                        Project Duration
+                        Status
                       </Typography>
                       <Typography sx={{ fontSize: "0.95rem", fontWeight: 600, color: colors.text }}>
-                        {fund.duration}
+                        {formData.status}
                       </Typography>
                     </Box>
                   </Stack>
@@ -352,11 +404,10 @@ export default function AdminFundDetailPage() {
                   <SectionLabel>Request Information</SectionLabel>
                   <Stack spacing={2}>
                     {[
-                      { icon: DollarSign, label: "Amount Requested", value: `$${fund.amount.toLocaleString()}` },
-                      { icon: MapPin, label: "Region", value: fund.region },
-                      { icon: TrendingUp, label: "Category", value: fund.category },
-                      { icon: Calendar, label: "Submitted", value: fund.submittedDate },
-                      { icon: Users, label: "Applicant", value: fund.applicant },
+                      { icon: DollarSign, label: "Amount", value: `$${(parseFloat(formData.amount) || 0).toLocaleString()}` },
+                      { icon: MapPin, label: "Region", value: formData.region || "-" },
+                      { icon: TrendingUp, label: "Category", value: formData.category || "-" },
+                      { icon: Users, label: "Applicant", value: formData.applicant || "-" },
                     ].map((item, idx) => {
                       const Icon = item.icon;
                       return (
