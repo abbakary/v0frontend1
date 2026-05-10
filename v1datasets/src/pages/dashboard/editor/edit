@@ -1,0 +1,816 @@
+now based on the public pages(e.g project,funds,trade and reports), now we need the editor user role to have able to view that requests about that pages accordingly(see the editor user role its sidebar menu to see how its e.g project request,funds requests,subscription(which will be trade ,so change the subscription to be trade like others to let editor to manage it), and reports(analysis reports), so we want editor user roles to have able to see/view all of that requests based on that page as its and able to edits them since is editor and make sure when user open/view and edit it these must open in full open page not popup model ,make the page be implemented just like how datasetInfo page is implemented but accordingly will also management actions buttons which is real using real APIs , for EDITING they must be edited based on how this APIs is, consider thiese APIs,(  DELETE
+/datasets/{dataset_id}
+Delete Dataset
+
+
+Projects
+
+
+POST
+/projects/
+Create Project
+
+Parameters
+Cancel
+No parameters
+
+Request body
+
+application/json
+Edit Value
+Schema
+{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "string",
+  "region": "string",
+  "country": "string",
+  "requested_by": "string",
+  "assigned_to": "string",
+  "priority": "Medium",
+  "status": "Submitted",
+  "progress": 0,
+  "due": "2026-05-08",
+  "submitted": "2026-05-08",
+  "tags": "string",
+  "datasets": "string",
+  "analysts": "string",
+  "published": false
+}
+Execute
+Clear
+Responses
+Curl
+
+curl -X 'POST' \
+  '' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "string",
+  "region": "string",
+  "country": "string",
+  "requested_by": "string",
+  "assigned_to": "string",
+  "priority": "Medium",
+  "status": "Submitted",
+  "progress": 0,
+  "due": "2026-05-08",
+  "submitted": "2026-05-08",
+  "tags": "string",
+  "datasets": "string",
+  "analysts": "string",
+  "published": false
+}'
+Request URL
+
+Server response
+Code	Details
+404
+Undocumented
+Error: response status is 404
+
+Response body
+Download
+{
+  "detail": "Country not found"
+}
+Response headers
+ access-control-allow-credentials: true 
+ access-control-expose-headers: * 
+ content-length: 30 
+ content-type: application/json 
+ date: Fri,08 May 2026 13:54:33 GMT 
+ server: nginx/1.24.0 (Ubuntu) 
+Responses
+Code	Description	Links
+201	
+Successful Response
+
+Media type
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "string",
+  "region": "string",
+  "country": "string",
+  "requested_by": "string",
+  "assigned_to": "string",
+  "priority": "Medium",
+  "status": "Submitted",
+  "progress": 0,
+  "due": "2026-05-08",
+  "submitted": "2026-05-08",
+  "tags": "string",
+  "datasets": "string",
+  "analysts": "string",
+  "published": false,
+  "id": 0,
+  "created_at": "2026-05-08T13:58:18.934Z",
+  "updated_at": "2026-05-08T13:58:18.934Z",
+  "deleted_at": "2026-05-08T13:58:18.934Z"
+}
+No links
+422	
+Validation Error
+
+Media type
+
+application/json
+Example Value
+Schema
+{
+  "detail": [
+    {
+      "loc": [
+        "string",
+        0
+      ],
+      "msg": "string",
+      "type": "string"
+    }
+  ]
+}
+No links
+
+GET
+/projects/
+List Projects
+
+
+GET
+/projects/{project_id}
+Get Project
+
+
+PUT
+/projects/{project_id}
+Update Project
+
+Parameters
+Cancel
+Name	Description
+project_id *
+integer
+(path)
+project_id
+Request body
+
+application/json
+Edit Value
+Schema
+{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "string",
+  "region": "string",
+  "country": "string",
+  "requested_by": "string",
+  "assigned_to": "string",
+  "priority": "Low",
+  "status": "Submitted",
+  "progress": 0,
+  "due": "2026-05-08",
+  "submitted": "2026-05-08",
+  "tags": "string",
+  "datasets": "string",
+  "analysts": "string",
+  "published": true
+}
+Please correct the following validation errors and try again.
+For 'project_id': Required field is not provided.
+Execute
+Responses
+Code	Description	Links
+200	
+Successful Response
+
+Media type
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "string",
+  "region": "string",
+  "country": "string",
+  "requested_by": "string",
+  "assigned_to": "string",
+  "priority": "Medium",
+  "status": "Submitted",
+  "progress": 0,
+  "due": "2026-05-08",
+  "submitted": "2026-05-08",
+  "tags": "string",
+  "datasets": "string",
+  "analysts": "string",
+  "published": false,
+  "id": 0,
+  "created_at": "2026-05-08T13:58:18.948Z",
+  "updated_at": "2026-05-08T13:58:18.948Z",
+  "deleted_at": "2026-05-08T13:58:18.948Z"
+}
+No links
+422	
+Validation Error
+
+Media type
+
+application/json
+Example Value
+Schema
+{
+  "detail": [
+    {
+      "loc": [
+        "string",
+        0
+      ],
+      "msg": "string",
+      "type": "string"
+    }
+  ]
+}
+No links
+
+DELETE
+/projects/{project_id}
+Delete Project
+
+Trades
+
+
+POST
+/trades/
+Create Trade
+
+Parameters
+Cancel
+No parameters
+
+Request body
+
+application/json
+Edit Value
+Schema
+{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "Export",
+  "sector": "string",
+  "region": "string",
+  "country": "string",
+  "partner": "string",
+  "transport": "string",
+  "currency": "string",
+  "value": 0,
+  "volume": "string",
+  "growth": 0,
+  "trending": "string",
+  "status": "Active",
+  "start_date": "2026-05-08",
+  "end_date": "2026-05-08",
+  "updated": "2026-05-08",
+  "tags": "string",
+  "published": false
+}
+Execute
+Clear
+Responses
+Curl
+
+curl -X 'POST' \
+  '' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "Export",
+  "sector": "string",
+  "region": "string",
+  "country": "string",
+  "partner": "string",
+  "transport": "string",
+  "currency": "string",
+  "value": 0,
+  "volume": "string",
+  "growth": 0,
+  "trending": "string",
+  "status": "Active",
+  "start_date": "2026-05-08",
+  "end_date": "2026-05-08",
+  "updated": "2026-05-08",
+  "tags": "string",
+  "published": false
+}'
+Request URL
+
+Server response
+Code	Details
+404
+Undocumented
+Error: response status is 404
+
+Response body
+Download
+{
+  "detail": "Country not found"
+}
+Response headers
+ access-control-allow-credentials: true 
+ access-control-expose-headers: * 
+ content-length: 30 
+ content-type: application/json 
+ date: Fri,08 May 2026 13:56:13 GMT 
+ server: nginx/1.24.0 (Ubuntu) 
+Responses
+Code	Description	Links
+201	
+Successful Response
+
+Media type
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "Export",
+  "sector": "string",
+  "region": "string",
+  "country": "string",
+  "partner": "string",
+  "transport": "string",
+  "currency": "string",
+  "value": 0,
+  "volume": "string",
+  "growth": 0,
+  "trending": "string",
+  "status": "Active",
+  "start_date": "2026-05-08",
+  "end_date": "2026-05-08",
+  "updated": "2026-05-08",
+  "tags": "string",
+  "published": false,
+  "id": 0,
+  "created_at": "2026-05-08T13:58:18.961Z",
+  "updated_at": "2026-05-08T13:58:18.961Z",
+  "deleted_at": "2026-05-08T13:58:18.961Z"
+}
+No links
+422	
+Validation Error
+
+Media type
+
+application/json
+Example Value
+Schema
+{
+  "detail": [
+    {
+      "loc": [
+        "string",
+        0
+      ],
+      "msg": "string",
+      "type": "string"
+    }
+  ]
+}
+No links
+
+GET
+/trades/
+List Trades
+
+
+GET
+/trades/{trade_id}
+Get Trade
+
+
+PUT
+/trades/{trade_id}
+Update Trade
+
+
+DELETE
+/trades/{trade_id}
+Delete Trade
+
+Funds
+
+
+POST
+/funds/
+Create Fund
+
+Parameters
+Cancel
+No parameters
+
+Request body
+
+application/json
+Edit Value
+Schema
+{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "string",
+  "region": "string",
+  "country": "string",
+  "donor": "string",
+  "manager": "string",
+  "currency": "string",
+  "total_amount": 0,
+  "disbursed": 0,
+  "remaining": 0,
+  "progress": 0,
+  "status": "Pledged",
+  "start_date": "2026-05-08",
+  "end_date": "2026-05-08",
+  "received": "2026-05-08",
+  "tags": [
+    "string"
+  ],
+  "published": false
+}
+Execute
+Clear
+Responses
+Curl
+
+curl -X 'POST' \
+  '' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "string",
+  "region": "string",
+  "country": "string",
+  "donor": "string",
+  "manager": "string",
+  "currency": "string",
+  "total_amount": 0,
+  "disbursed": 0,
+  "remaining": 0,
+  "progress": 0,
+  "status": "Pledged",
+  "start_date": "2026-05-08",
+  "end_date": "2026-05-08",
+  "received": "2026-05-08",
+  "tags": [
+    "string"
+  ],
+  "published": false
+}'
+Request URL
+
+Server response
+Code	Details
+404
+Undocumented
+Error: response status is 404
+
+Response body
+Download
+{
+  "detail": "Country not found"
+}
+Response headers
+ access-control-allow-credentials: true 
+ access-control-expose-headers: * 
+ content-length: 30 
+ content-type: application/json 
+ date: Fri,08 May 2026 13:56:45 GMT 
+ server: nginx/1.24.0 (Ubuntu) 
+Responses
+Code	Description	Links
+201	
+Successful Response
+
+Media type
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+{
+  "category_id": 0,
+  "country_code": "string",
+  "title": "string",
+  "type": "string",
+  "region": "string",
+  "country": "string",
+  "donor": "string",
+  "manager": "string",
+  "currency": "string",
+  "total_amount": 0,
+  "disbursed": 0,
+  "remaining": 0,
+  "progress": 0,
+  "status": "Pledged",
+  "start_date": "2026-05-08",
+  "end_date": "2026-05-08",
+  "received": "2026-05-08",
+  "tags": [
+    "string"
+  ],
+  "published": false,
+  "id": 0,
+  "created_at": "2026-05-08T13:58:18.974Z",
+  "updated_at": "2026-05-08T13:58:18.974Z",
+  "deleted_at": "2026-05-08T13:58:18.974Z"
+}
+No links
+422	
+Validation Error
+
+Media type
+
+application/json
+Example Value
+Schema
+{
+  "detail": [
+    {
+      "loc": [
+        "string",
+        0
+      ],
+      "msg": "string",
+      "type": "string"
+    }
+  ]
+}
+No links
+
+GET
+/funds/
+List Funds
+
+
+GET
+/funds/{fund_id}
+Get Fund
+
+
+PUT
+/funds/{fund_id}
+Update Fund
+
+
+DELETE
+/funds/{fund_id}
+Delete Fund
+
+Reports
+
+
+POST
+/reports/
+Create Report
+
+
+Parameters
+Cancel
+No parameters
+
+Request body
+
+application/json
+Edit Value
+Schema
+{
+  "category_id": 0,
+  "organization_id": 0,
+  "seller_profile_id": 0,
+  "country_code": "string",
+  "country": "string",
+  "region": "string",
+  "title": "string",
+  "slug": "string",
+  "summary": "string",
+  "description": "string",
+  "report_type": "research",
+  "author": "string",
+  "publisher": "string",
+  "published_year": 0,
+  "language": "English",
+  "page_count": 0,
+  "file_format": "PDF",
+  "thumbnail": "string",
+  "preview_file": "string",
+  "tags": [
+    "string"
+  ],
+  "visibility": "public",
+  "license_type": "string",
+  "is_downloadable": true,
+  "is_featured": false,
+  "approval_status": "draft",
+  "marketplace_status": "draft",
+  "rejection_reason": "string",
+  "published": false
+}
+Execute
+Clear
+Responses
+Curl
+
+curl -X 'POST' \
+  '' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "category_id": 0,
+  "organization_id": 0,
+  "seller_profile_id": 0,
+  "country_code": "string",
+  "country": "string",
+  "region": "string",
+  "title": "string",
+  "slug": "string",
+  "summary": "string",
+  "description": "string",
+  "report_type": "research",
+  "author": "string",
+  "publisher": "string",
+  "published_year": 0,
+  "language": "English",
+  "page_count": 0,
+  "file_format": "PDF",
+  "thumbnail": "string",
+  "preview_file": "string",
+  "tags": [
+    "string"
+  ],
+  "visibility": "public",
+  "license_type": "string",
+  "is_downloadable": true,
+  "is_featured": false,
+  "approval_status": "draft",
+  "marketplace_status": "draft",
+  "rejection_reason": "string",
+  "published": false
+}'
+Request URL
+
+Server response
+Code	Details
+403
+Undocumented
+Error: response status is 403
+
+Response body
+Download
+{
+  "detail": "Not authenticated"
+}
+Response headers
+ access-control-allow-credentials: true 
+ access-control-expose-headers: * 
+ content-length: 30 
+ content-type: application/json 
+ date: Fri,08 May 2026 13:57:13 GMT 
+ server: nginx/1.24.0 (Ubuntu) 
+Responses
+Code	Description	Links
+201	
+Successful Response
+
+Media type
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+{
+  "message": "string",
+  "data": {
+    "category_id": 0,
+    "organization_id": 0,
+    "seller_profile_id": 0,
+    "country_code": "string",
+    "country": "string",
+    "region": "string",
+    "title": "string",
+    "slug": "string",
+    "summary": "string",
+    "description": "string",
+    "report_type": "research",
+    "author": "string",
+    "publisher": "string",
+    "published_year": 0,
+    "language": "English",
+    "page_count": 0,
+    "file_format": "PDF",
+    "thumbnail": "string",
+    "preview_file": "string",
+    "tags": [],
+    "visibility": "public",
+    "license_type": "string",
+    "is_downloadable": true,
+    "is_featured": false,
+    "approval_status": "draft",
+    "marketplace_status": "draft",
+    "rejection_reason": "string",
+    "published": false,
+    "id": 0,
+    "owner_user_id": 0,
+    "published_at": "2026-05-08T13:58:18.982Z",
+    "published_by": 0,
+    "total_views": 0,
+    "total_downloads": 0,
+    "total_sales": 0,
+    "created_by": 0,
+    "created_at": "2026-05-08T13:58:18.982Z",
+    "updated_at": "2026-05-08T13:58:18.982Z",
+    "deleted_at": "2026-05-08T13:58:18.982Z"
+  }
+}
+No links
+422	
+Validation Error
+
+Media type
+
+application/json
+Example Value
+Schema
+{
+  "detail": [
+    {
+      "loc": [
+        "string",
+        0
+      ],
+      "msg": "string",
+      "type": "string"
+    }
+  ]
+}
+No links
+
+GET
+/reports/
+List Reports
+
+
+GET
+/reports/search
+Search Reports
+
+
+GET
+/reports/featured
+Featured Reports
+
+
+GET
+/reports/mine
+My Reports
+
+
+
+GET
+/reports/{report_id}
+Get Report
+
+
+PUT
+/reports/{report_id}
+Update Report
+
+
+
+DELETE
+/reports/{report_id}
+Delete Report  )
