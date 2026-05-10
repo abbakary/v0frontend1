@@ -87,6 +87,11 @@ const roleNavItems = {
     },
     { label: "Moderation", href: "/dashboard/editor/moderation", icon: Eye },
     {
+      label: "Datasets",
+      href: "/dashboard/editor/datasets",
+      icon: Database,
+    },
+    {
       label: "Record Requests",
       href: "/dashboard/editor/requests",
       icon: Send,

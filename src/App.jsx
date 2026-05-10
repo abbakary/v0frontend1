@@ -87,6 +87,8 @@ import EditTradeRequestPage from "./pages/dashboard/editor/EditTradeRequestPage"
 import EditProjectRequestPage from "./pages/dashboard/editor/EditProjectRequestPage";
 import EditReportRequestPage from "./pages/dashboard/editor/EditReportRequestPage";
 import NewReportRequestPage from "./pages/dashboard/editor/NewReportRequestPage";
+import EditorDatasetsPage from "./pages/dashboard/editor/EditorDatasetsPage";
+import EditorDatasetDetailPage from "./pages/dashboard/editor/EditorDatasetDetailPage";
 
 /* ===================== Buyer Sub-pages ===================== */
 import BuyerPurchasesPage from "./pages/dashboard/buyer/PurchasesPage";
@@ -211,6 +213,14 @@ function AppRoutes() {
       <Route
         path="/dashboard/editor/requests"
         element={<EditorRequestsPage role="editor" />}
+      />
+      <Route
+        path="/dashboard/editor/datasets"
+        element={<EditorDatasetsPage />}
+      />
+      <Route
+        path="/dashboard/editor/datasets/:id"
+        element={<EditorDatasetDetailPage />}
       />
       <Route
         path="/dashboard/editor/reports"
