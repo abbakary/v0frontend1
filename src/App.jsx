@@ -59,6 +59,14 @@ import AdminFinanceControlPage from "./pages/dashboard/admin/FinanceControlPage"
 import AdminOrganizationsPage from "./pages/dashboard/admin/OrganizationsPage";
 import AdminReportDetailPage from "./pages/dashboard/admin/AdminReportDetailPage";
 import SettingsPage from "./pages/dashboard/components/SettingsPage";
+// New Management Pages
+import AdminDatasetsManagementPage from "./pages/dashboard/admin/AdminDatasetsManagementPage";
+import AdminDatasetDetailPage from "./pages/dashboard/admin/AdminDatasetDetailPage";
+import AdminTradesManagementPage from "./pages/dashboard/admin/AdminTradesManagementPage";
+import AdminTradeDetailPage2 from "./pages/dashboard/admin/AdminTradeDetailPage2";
+import AdminFundsManagementPage from "./pages/dashboard/admin/AdminFundsManagementPage";
+import AdminProjectsManagementPage from "./pages/dashboard/admin/AdminProjectsManagementPage";
+import AdminReportsManagementPage from "./pages/dashboard/admin/AdminReportsManagementPage";
 
 /* ===================== Editor Sub-pages ===================== */
 import EditorReviewsPage from "./pages/dashboard/editor/ReviewsPage";
@@ -279,7 +287,9 @@ function AppRoutes() {
         path="/dashboard/admin/organizations"
         element={<AdminOrganizationsPage role="admin" />}
       />
-      <Route path="/dashboard/admin/datasets" element={<AdminDatasetsPage />} />
+      <Route path="/dashboard/admin/datasets" element={<AdminDatasetsManagementPage />} />
+      <Route path="/dashboard/admin/datasets/new" element={<AdminDatasetDetailPage />} />
+      <Route path="/dashboard/admin/datasets/:id" element={<AdminDatasetDetailPage />} />
       <Route
         path="/dashboard/admin/revenue"
         element={<AdminRevenueReportsPage />}
@@ -287,19 +297,27 @@ function AppRoutes() {
       <Route path="/dashboard/admin/requests" element={<AdminRequestsPage />} />
       <Route
         path="/dashboard/admin/trades"
-        element={<AdminTradeRequestsPage role="admin" />}
+        element={<AdminTradesManagementPage />}
+      />
+      <Route
+        path="/dashboard/admin/trades/new"
+        element={<AdminTradeDetailPage2 />}
       />
       <Route
         path="/dashboard/admin/trades/:tradeId"
-        element={<AdminTradeDetailPage />}
+        element={<AdminTradeDetailPage2 />}
       />
       <Route
         path="/dashboard/admin/trades/:tradeId/edit"
-        element={<AdminTradeDetailPage />}
+        element={<AdminTradeDetailPage2 />}
       />
       <Route
         path="/dashboard/admin/funds"
-        element={<AdminFundRequestsPage role="admin" />}
+        element={<AdminFundsManagementPage />}
+      />
+      <Route
+        path="/dashboard/admin/funds/new"
+        element={<AdminFundDetailPage />}
       />
       <Route
         path="/dashboard/admin/funds/:fundId"
@@ -313,7 +331,10 @@ function AppRoutes() {
         path="/dashboard/admin/finance"
         element={<AdminFinanceControlPage role="admin" />}
       />
-      <Route path="/dashboard/admin/reports" element={<AdminReportsPage />} />
+      <Route path="/dashboard/admin/reports" element={<AdminReportsManagementPage />} />
+      <Route path="/dashboard/admin/reports/new" element={<AdminReportDetailPage />} />
+      <Route path="/dashboard/admin/reports/:reportId" element={<AdminReportDetailPage />} />
+      <Route path="/dashboard/admin/reports/:reportId/edit" element={<AdminReportDetailPage />} />
       <Route
         path="/dashboard/admin/reports/:reportId"
         element={<AdminReportDetailPage />}
@@ -322,7 +343,10 @@ function AppRoutes() {
         path="/dashboard/admin/reports/:reportId/edit"
         element={<AdminReportDetailPage />}
       />
-      <Route path="/dashboard/admin/projects" element={<AdminProjectsPage />} />
+      <Route path="/dashboard/admin/projects" element={<AdminProjectsManagementPage />} />
+      <Route path="/dashboard/admin/projects/new" element={<AdminProjectDetailPage />} />
+      <Route path="/dashboard/admin/projects/:projectId" element={<AdminProjectDetailPage />} />
+      <Route path="/dashboard/admin/projects/:projectId/edit" element={<AdminProjectDetailPage />} />
       <Route
         path="/dashboard/admin/projects/:projectId"
         element={<AdminProjectDetailPage />}
